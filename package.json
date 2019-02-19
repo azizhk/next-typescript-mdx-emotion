@@ -1,6 +1,6 @@
 {
-  "name": "bn.website",
-  "description": "Broker Network Website",
+  "name": "next-typescript-mdx-emotion",
+  "description": "Next.js + Typescript + MDx + Emotion Static Site StarterKit / BoilerPlate",
   "private": true,
   "scripts": {
     "dev": "next --inspect",
