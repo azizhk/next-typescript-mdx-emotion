@@ -8,11 +8,24 @@ import Document, {
 } from "next/document";
 import { extractCritical } from "emotion-server";
 import { EmotionCritical } from "create-emotion-server";
+import { readFile as _readFile } from "fs";
+import { promisify } from "util";
+import { join } from "path";
 
-interface DocumentProps extends _DocumentProps, EmotionCritical {}
+const readFile = promisify(_readFile);
+
+import NextScriptProd from "../components/NextScript";
+
+interface DocumentProps extends _DocumentProps, EmotionCritical {
+  clientBuildManifest: {
+    clientPages: {
+      [path: string]: string;
+    };
+  };
+}
 
 export default class MyDocument extends Document<DocumentProps> {
-  static getInitialProps(ctx: NextDocumentContext) {
+  static async getInitialProps(ctx: NextDocumentContext) {
     // const page = Document.getInitialProps(ctx)
     const { renderPage } = ctx;
     const page = renderPage();
@@ -20,7 +33,17 @@ export default class MyDocument extends Document<DocumentProps> {
     if (page.html) {
       styles = extractCritical(page.html);
     }
-    return { ...page, ...styles };
+    let clientBuildManifest;
+    if (process.env.NODE_ENV === "production") {
+      clientBuildManifest = JSON.parse(
+        (await readFile(
+          join(__dirname, "../../../../client-build-manifest.json")
+        )).toString()
+      );
+      // console.log(clientBuildManifest);
+    }
+
+    return { ...page, ...styles, clientBuildManifest };
   }
 
   constructor(props: DocumentProps) {
@@ -32,6 +55,7 @@ export default class MyDocument extends Document<DocumentProps> {
   }
 
   render() {
+    const { clientBuildManifest } = this.props;
     return (
       <html>
         <Head>
@@ -39,7 +63,11 @@ export default class MyDocument extends Document<DocumentProps> {
         </Head>
         <body>
           <Main />
-          <NextScript />
+          {process.env.NODE_ENV === "production" ? (
+            <NextScriptProd clientBuildManifest={clientBuildManifest} />
+          ) : (
+            <NextScript />
+          )}
         </body>
       </html>
     );

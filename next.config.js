@@ -3,7 +3,10 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const enhance = fp.compose(
   require("@zeit/next-typescript"),
-  require("@zeit/next-mdx")()
+  require("@zeit/next-mdx")(),
+  require("next-asset-filename")({
+    appendHash: true
+  })
   // Add more plugins here
 );
 
