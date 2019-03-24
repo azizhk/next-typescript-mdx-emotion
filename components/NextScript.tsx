@@ -14,39 +14,6 @@ export default class NextScript extends _NextScript {
     crossOrigin: PropTypes.string
   };
 
-  getDynamicChunks() {
-    // @ts-ignore
-    super.getDynamicChunks();
-  }
-
-  getScripts() {
-    const { assetPrefix, files } = this.context._documentProps;
-    if (!files || files.length === 0) {
-      return null;
-    }
-    const { _devOnlyInvalidateCacheQueryString } = this.context;
-
-    return files.map((file: string) => {
-      // Only render .js files here
-      if (!/\.js$/.exec(file)) {
-        return null;
-      }
-
-      return (
-        <script
-          key={file}
-          src={`${assetPrefix}/_next/${file}${_devOnlyInvalidateCacheQueryString}`}
-          nonce={this.props.nonce}
-          async
-          crossOrigin={
-            // @ts-ignore
-            this.props.crossOrigin || process.crossOrigin
-          }
-        />
-      );
-    });
-  }
-
   render() {
     const { clientBuildManifest } = this.props;
     const {
