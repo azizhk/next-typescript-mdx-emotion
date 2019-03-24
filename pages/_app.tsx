@@ -20,5 +20,7 @@ if (
   typeof document !== "undefined"
 ) {
   hydrate(window.__NEXT_DATA__.ids);
-  pathPageLoader();
+  if (process.env.NODE_ENV === "production") {
+    pathPageLoader();
+  }
 }
