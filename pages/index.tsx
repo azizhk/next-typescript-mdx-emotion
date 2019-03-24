@@ -1,6 +1,6 @@
 import * as React from "react";
 import { css } from "emotion";
-import Link from "next/link";
+import NextLink from "next/link";
 
 const headerStyle = css({
   color: "#777"
@@ -18,9 +18,14 @@ export default class Index extends React.PureComponent {
         <p className={contentStyle}>This is the content</p>
         <p className={contentStyle}>This is some more content</p>
         <p>
-          <Link href="/markdown">
+          <NextLink href="/markdown">
             <a>Markdown Page</a>
-          </Link>
+          </NextLink>
+        </p>
+        <p>
+          <NextLink href="/markdown" as="/markdown-custom">
+            <a>This is custom link</a>
+          </NextLink>
         </p>
       </div>
     );

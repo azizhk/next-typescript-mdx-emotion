@@ -57,10 +57,10 @@ export default class NextScript extends _NextScript {
     } = this.context._documentProps;
     const { _devOnlyInvalidateCacheQueryString } = this.context;
 
-    const { page, buildId } = __NEXT_DATA__;
+    const { page } = __NEXT_DATA__;
 
     // const path = getPagePathname(page);
-    // console.log(path, clientBuildManifest.clientPages[path]);
+    // console.log(path, clientBuildManifest.clientPageAsset[path]);
 
     return (
       <>
@@ -99,7 +99,7 @@ export default class NextScript extends _NextScript {
             async
             id={`__NEXT_PAGE__${page}`}
             src={`${assetPrefix}/_next/${
-              clientBuildManifest.clientPages[getPagePathname(page)]
+              clientBuildManifest.clientPageAsset[getPagePathname(page)]
             }${_devOnlyInvalidateCacheQueryString}`}
             nonce={this.props.nonce}
             crossOrigin={
@@ -112,7 +112,7 @@ export default class NextScript extends _NextScript {
           async
           id={`__NEXT_PAGE__/_app`}
           src={`${assetPrefix}/_next/${
-            clientBuildManifest.clientPages["/_app"]
+            clientBuildManifest.clientPageAsset["/_app"]
           }${_devOnlyInvalidateCacheQueryString}`}
           nonce={this.props.nonce}
           crossOrigin={

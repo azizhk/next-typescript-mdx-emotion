@@ -1,6 +1,6 @@
 import * as React from "react";
 import Document, {
-  Head,
+  // Head,
   Main,
   NextScript,
   NextDocumentContext,
@@ -37,7 +37,7 @@ export default class MyDocument extends Document<DocumentProps> {
     if (process.env.NODE_ENV === "production") {
       clientBuildManifest = JSON.parse(
         (await readFile(
-          join(__dirname, "../../../../client-build-manifest.json")
+          join(__dirname, "../../../../client-manifest.json")
         )).toString()
       );
       // console.log(clientBuildManifest);
@@ -58,10 +58,8 @@ export default class MyDocument extends Document<DocumentProps> {
     const { clientBuildManifest } = this.props;
     return (
       <html>
-        <Head>
-          <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
-        </Head>
         <body>
+          <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
           <Main />
           {process.env.NODE_ENV === "production" ? (
             <NextScriptProd clientBuildManifest={clientBuildManifest} />

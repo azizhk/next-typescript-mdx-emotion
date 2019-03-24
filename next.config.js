@@ -11,6 +11,14 @@ const enhance = fp.compose(
 );
 
 module.exports = enhance({
+  exportPathMap: function(defaultPathMap) {
+    return {
+      ...defaultPathMap,
+      "/markdown-custom": {
+        page: "/markdown"
+      }
+    };
+  },
   async generateBuildId() {
     return "const";
   },
