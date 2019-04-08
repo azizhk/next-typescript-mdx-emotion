@@ -8,9 +8,6 @@ const enhance = fp.compose(
 );
 
 module.exports = enhance({
-  async generateBuildId() {
-    return "const";
-  },
   webpack(config, options) {
     // Do not run type checking twice:
     if (options.isServer && options.dev)
