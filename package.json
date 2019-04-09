@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next --inspect",
-    "build": "rimraf ./{out,.next} && next build && next export",
+    "build": "rimraf ./out && next build && next export",
     "postbuild": "sw-precache --root=out --static-file-globs='out/**/*.{js,html,css,png,jpg,gif,svg}'",
     "start": "serve ./out"
   },
