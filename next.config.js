@@ -15,9 +15,21 @@ module.exports = enhance({
       "next/babel",
       "@zeit/next-typescript/babel"
     ];
-    if (!options.isServer) {
+    if (!options.isServer && !options.dev) {
       config.plugins.push(
         new BabelEsmPlugin({
+          filename: file => {
+            const originalFilename = config.output.filename;
+            const name = originalFilename(file);
+            return (name !== "[name]" ? name : file.chunk.name).replace(
+              /\.js$/,
+              ".es6.js"
+            );
+          },
+          chunkFilename: config.output.chunkFilename.replace(
+            /\.js$/,
+            ".es6.js"
+          ),
           beforeStartExecution: (plugins, options) => {
             options.presets = options.presets.filter(preset => {
               return (
@@ -36,7 +48,6 @@ module.exports = enhance({
               }
               return preset;
             });
-            console.log(options);
           }
         })
       );
