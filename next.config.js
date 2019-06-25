@@ -45,6 +45,16 @@ module.exports = enhance({
                   }
                 ];
               } else if (Array.isArray(preset) && preset[0] === "next/babel") {
+                return [
+                  "next/babel",
+                  {
+                    ...preset[1],
+                    "preset-env": {
+                      ...preset[1]["preset-env"],
+                      targets: { esmodules: true }
+                    }
+                  }
+                ];
               }
               return preset;
             });
