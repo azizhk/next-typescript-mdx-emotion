@@ -15,7 +15,7 @@
     "@zeit/next-typescript": "^1.1.1",
     "emotion": "^10.0.7",
     "emotion-server": "^10.0.7",
-    "next": "^8.0.1",
+    "next": "^9.3.2",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "rimraf": "^2.6.3",
