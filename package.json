@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next --inspect",
     "build": "rimraf ./out && next build && next export",
-    "postbuild": "sw-precache --root=out --static-file-globs='out/**/*.{js,html,css,png,jpg,gif,svg}'",
+    "postbuild": "cpy ./.next/client-manifest.json ./out/_next",
     "start": "serve ./out"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "@mdx-js/mdx": "^0.17.5",
     "@zeit/next-mdx": "^1.2.0",
     "@zeit/next-typescript": "^1.1.1",
+    "cpy-cli": "^2.0.0",
     "emotion": "^10.0.7",
     "emotion-server": "^10.0.7",
     "next": "^8.0.1",
